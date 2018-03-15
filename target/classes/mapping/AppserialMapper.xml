@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wen.bdv.dao.AppserialMapper" >
+  <resultMap id="BaseResultMap" type="com.wen.bdv.model.Appserial" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="app_serial" property="appSerial" jdbcType="VARCHAR" />
+    <result column="app_system" property="appSystem" jdbcType="VARCHAR" />
+    <result column="app_model" property="appModel" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, app_serial, app_system, app_model, app_name, app_version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from appserial
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from appserial
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wen.bdv.model.Appserial" >
+    insert into appserial (id, app_serial, app_system, 
+      app_model, app_name, app_version
+      )
+    values (#{id,jdbcType=INTEGER}, #{appSerial,jdbcType=VARCHAR}, #{appSystem,jdbcType=VARCHAR}, 
+      #{appModel,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{appVersion,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wen.bdv.model.Appserial" >
+    insert into appserial
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appSerial != null" >
+        app_serial,
+      </if>
+      <if test="appSystem != null" >
+        app_system,
+      </if>
+      <if test="appModel != null" >
+        app_model,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="appVersion != null" >
+        app_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appSerial != null" >
+        #{appSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="appSystem != null" >
+        #{appSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="appModel != null" >
+        #{appModel,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wen.bdv.model.Appserial" >
+    update appserial
+    <set >
+      <if test="appSerial != null" >
+        app_serial = #{appSerial,jdbcType=VARCHAR},
+      </if>
+      <if test="appSystem != null" >
+        app_system = #{appSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="appModel != null" >
+        app_model = #{appModel,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        app_version = #{appVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wen.bdv.model.Appserial" >
+    update appserial
+    set app_serial = #{appSerial,jdbcType=VARCHAR},
+      app_system = #{appSystem,jdbcType=VARCHAR},
+      app_model = #{appModel,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_version = #{appVersion,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllUserCount" resultType="java.lang.Integer">
+      select count(distinct app_serial) from appserial
+  </select>
+   <select id="selectAllPhoneCount" resultType="java.lang.Integer">
+      select count(distinct app_model) from appserial
+  </select>
+  <select id="selectAppWrapperByAppName" resultType="com.wen.bdv.wrapper.AppWrapper">
+  SELECT skey as skey, COUNT(1) AS svalue FROM 
+  (select app_name as skey, app_serial as app_serial, count(distinct app_serial) from appserial group by app_serial) bb
+	GROUP BY skey order by svalue desc
+  </select>
+  <select id="selectAppWrapperByAppModel" resultType="com.wen.bdv.wrapper.AppWrapper">
+  SELECT skey as skey, COUNT(1) AS svalue FROM 
+  (select app_model as skey, app_serial as app_serial, count(distinct app_serial) from appserial group by app_serial) bb
+	GROUP BY skey order by svalue desc
+  </select>
+  <select id="selectAppWrapperByAppSystem" resultType="com.wen.bdv.wrapper.AppWrapper">
+  SELECT skey as skey, COUNT(1) AS svalue FROM 
+  (select app_system as skey, app_serial as app_serial, count(distinct app_serial) from appserial group by app_serial) bb
+	GROUP BY skey order by svalue desc
+  </select>
+  <select id="selectAllPhone" resultType="java.lang.String">
+      select distinct app_model from appserial
+  </select>
+  <select id="selectAllPhoneByApp" resultType="java.lang.String">
+      select distinct app_model from appserial where app_name = #{appName,jdbcType=VARCHAR} and app_version = #{appVersion,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wen.bdv.dao.GpsMapper" >
+  <resultMap id="BaseResultMap" type="com.wen.bdv.model.Gps" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="appserial" property="appserial" jdbcType="VARCHAR" />
+    <result column="gps" property="gps" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, appserial, gps
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gps
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gps
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wen.bdv.model.Gps" >
+    insert into gps (id, appserial, gps
+      )
+    values (#{id,jdbcType=INTEGER}, #{appserial,jdbcType=VARCHAR}, #{gps,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wen.bdv.model.Gps" >
+    insert into gps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appserial != null" >
+        appserial,
+      </if>
+      <if test="gps != null" >
+        gps,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appserial != null" >
+        #{appserial,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        #{gps,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wen.bdv.model.Gps" >
+    update gps
+    <set >
+      <if test="appserial != null" >
+        appserial = #{appserial,jdbcType=VARCHAR},
+      </if>
+      <if test="gps != null" >
+        gps = #{gps,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wen.bdv.model.Gps" >
+    update gps
+    set appserial = #{appserial,jdbcType=VARCHAR},
+      gps = #{gps,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllAppSerialWithOutSelected" resultMap="BaseResultMap">
+      select b.id as id, b.appserial as appserial, b.gps as gps, count(distinct b.appserial) 
+	  from gps b where b.gps not in('Unknown') group by b.appserial
+  </select>
+</mapper>

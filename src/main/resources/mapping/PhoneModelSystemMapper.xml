@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wen.bdv.dao.PhoneModelSystemMapper" >
+  <resultMap id="BaseResultMap" type="com.wen.bdv.model.PhoneModelSystem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="system" property="system" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, brand, system, model
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from phone_model_system
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from phone_model_system
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wen.bdv.model.PhoneModelSystem" >
+    insert into phone_model_system (id, brand, system, 
+      model)
+    values (#{id,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, #{system,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wen.bdv.model.PhoneModelSystem" >
+    insert into phone_model_system
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="system != null" >
+        system,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wen.bdv.model.PhoneModelSystem" >
+    update phone_model_system
+    <set >
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="system != null" >
+        system = #{system,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wen.bdv.model.PhoneModelSystem" >
+    update phone_model_system
+    set brand = #{brand,jdbcType=VARCHAR},
+      system = #{system,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPhoneModelSystem" resultMap="BaseResultMap">
+      select * from phone_model_system
+  </select>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wen.bdv.dao.AreaMapper" >
+  <resultMap id="BaseResultMap" type="com.wen.bdv.model.Area" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cnname" property="cnname" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="isshow" property="isshow" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.wen.bdv.model.Area" >
+    insert into area (id, name, cnname, 
+      code, areacode, isshow
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cnname,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{areacode,jdbcType=VARCHAR}, #{isshow,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wen.bdv.model.Area" >
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="cnname != null" >
+        cnname,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="areacode != null" >
+        areacode,
+      </if>
+      <if test="isshow != null" >
+        isshow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

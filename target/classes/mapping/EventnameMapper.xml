@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wen.bdv.dao.EventnameMapper" >
+  <resultMap id="BaseResultMap" type="com.wen.bdv.model.Eventname" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="event_name" property="eventName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, event_name, content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from eventname
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from eventname
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wen.bdv.model.Eventname" >
+    insert into eventname (id, event_name, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{eventName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wen.bdv.model.Eventname" >
+    insert into eventname
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="eventName != null" >
+        event_name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eventName != null" >
+        #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wen.bdv.model.Eventname" >
+    update eventname
+    <set >
+      <if test="eventName != null" >
+        event_name = #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wen.bdv.model.Eventname" >
+    update eventname
+    set event_name = #{eventName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllEventname" resultMap="BaseResultMap">
+      select * from eventname order by id desc
+  </select>
+  <select id="selectEventnameByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select * from eventname where event_name like CONCAT('%',#{eventName},'%') 
+  </select>
+  <select id="selectEventnameByFunctionId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      select e.* from eventname e, function_behavior fb where fb.behavior_id =  e.id and fb.function_id = #{functionId}
+  </select>
+</mapper>

@@ -1,0 +1,16 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow:-Scroll;
+  overflow-x:hidden
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+/* .navbar-default{
+	background-color:#000;
+    border-color:#000;
+    opacity:0.1;
+}  */
