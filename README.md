@@ -1,7 +1,5 @@
   # Big-data-visualization-system
 （基于用户行为的数据可视化系统）
-
-demo源码已经放在github上面：https://github.com/awhen/Big-data-visualization-system
  
 ##  开发环境
  
@@ -9,13 +7,13 @@ demo源码已经放在github上面：https://github.com/awhen/Big-data-visualiza
  
  - 框架：spring 4.2.5 + mybatis 3.2.8
 
-##前提条件：
+##  前提条件：
 
 - 原始数据的收集：将app的每个页面的每个动作抽象为一个动作，将动作作为监听事件，加上事件的gps、发生时间
 
 - 数据提取：从一个用户的总结 - 一群用户的总结 -所有用户的总结，最后将结论性数据放在数据库中
 
-##而今天要的demo便是将结论性数据用图表形式展示出来：
+##  而今天要的demo便是将结论性数据用图表形式展示出来：
 
 - 首页：
 
